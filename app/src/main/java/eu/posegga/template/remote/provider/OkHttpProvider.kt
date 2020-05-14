@@ -4,6 +4,7 @@ import android.content.Context
 import eu.posegga.template.common.Provider
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
 
 class OkHttpProvider(
@@ -13,6 +14,9 @@ class OkHttpProvider(
     override fun provide(): OkHttpClient =
         OkHttpClient.Builder()
             .cache(Cache(File(context.cacheDir, CACHE_DIRECTORY), CACHE_SIZE))
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BASIC
+            })
             .build()
 
     private companion object {

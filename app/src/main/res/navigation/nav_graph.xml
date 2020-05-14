@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="eu.posegga.template.view.ListFragment"
+        android:name="eu.posegga.template.view.BreedsFragment"
         android:label="ListFragment">
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
@@ -15,10 +15,10 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="eu.posegga.template.view.DetailFragment"
-        android:label="DetailFragment">
+        android:name="eu.posegga.template.view.ImagesFragment"
+        android:label="{breed}">
         <argument
             android:name="breed"
-            app:argType="string" />
+            app:argType="eu.posegga.template.domain.model.Breed" />
     </fragment>
 </navigation>

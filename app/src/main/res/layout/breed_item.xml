@@ -9,7 +9,7 @@
     app:cardUseCompatPadding="true">
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/breed_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
