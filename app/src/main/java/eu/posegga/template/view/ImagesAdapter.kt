@@ -1,19 +1,22 @@
 package eu.posegga.template.view
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import eu.posegga.template.R
+import eu.posegga.template.domain.model.Image
 import eu.posegga.template.view.ImagesAdapter.ImageViewHolder
 
-class ImagesAdapter : ListAdapter<String, ImageViewHolder>(ITEM_CALLBACK) {
+class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
 
-    var itemClickListener: (String) -> Unit = {}
+    var onFavouriteClickListener: (Image) -> Unit = { }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ImageViewHolder(
@@ -25,27 +28,52 @@ class ImagesAdapter : ListAdapter<String, ImageViewHolder>(ITEM_CALLBACK) {
     }
 
     inner class ImageViewHolder(
-        private val containerView: View
+        containerView: View
     ) : RecyclerView.ViewHolder(containerView) {
 
         private val breedImage: ImageView = containerView.findViewById(R.id.breed_image)
+        private val favoriteCheckbox: ImageButton =
+            containerView.findViewById(R.id.checkbox_favourite)
 
-        fun bind(url: String) {
+        @SuppressLint("ClickableViewAccessibility")
+        fun bind(image: Image) {
 
             Picasso.get()
-                .load(url)
+                .load(image.url)
                 .into(breedImage)
+
+            val buttonBackground =
+                if (image.isFavorite) favoriteCheckbox.resources.getDrawable(R.drawable.ic_favorite) else favoriteCheckbox.resources.getDrawable(
+                    R.drawable.ic_favorite_border
+                )
+
+            favoriteCheckbox.background = buttonBackground
+
+            favoriteCheckbox.setOnClickListener {
+                onFavouriteClickListener.invoke(image)
+            }
+
+//            favoriteCheckbox.setOnTouchListener { _, event ->
+//                if (event.action == MotionEvent.ACTION_DOWN) {
+//                    onFavouriteClickListener.invoke(image.copy(isFavorite = !image.isFavorite))
+//                }
+//                true
+//
+//            }
+//            favoriteCheckbox.setOnCheckedChangeListener { _, isChecked ->
+//                onFavouriteClickListener.invoke(image.copy(isFavorite = isChecked))
+//            }
         }
     }
 
     private companion object {
-        val ITEM_CALLBACK = object : DiffUtil.ItemCallback<String>() {
+        val ITEM_CALLBACK = object : DiffUtil.ItemCallback<Image>() {
 
-            override fun areItemsTheSame(oldBreed: String, newBreed: String): Boolean =
-                oldBreed == newBreed
+            override fun areItemsTheSame(oldImage: Image, newImage: Image): Boolean =
+                oldImage.url == newImage.url
 
-            override fun areContentsTheSame(oldBreed: String, newBreed: String): Boolean =
-                oldBreed == newBreed
+            override fun areContentsTheSame(oldBreed: Image, newBreed: Image): Boolean =
+                oldBreed.isFavorite == newBreed.isFavorite
         }
     }
 }

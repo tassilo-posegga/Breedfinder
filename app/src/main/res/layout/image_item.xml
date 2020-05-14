@@ -16,17 +16,17 @@
             android:layout_width="0dp"
             android:layout_height="164dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/button_favourite"
+            app:layout_constraintBottom_toTopOf="@id/checkbox_favourite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/button_favourite"
+            android:id="@+id/checkbox_favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/double_margin"
-            android:background="@drawable/ic_favorite"
+            android:background="@drawable/favourite_checkbox"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/breed_image" />
@@ -37,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/double_margin"
             android:background="@drawable/ic_share"
-            app:layout_constraintBottom_toBottomOf="@id/button_favourite"
-            app:layout_constraintEnd_toStartOf="@id/button_favourite"
-            app:layout_constraintTop_toTopOf="@id/button_favourite" />
+            app:layout_constraintBottom_toBottomOf="@id/checkbox_favourite"
+            app:layout_constraintEnd_toStartOf="@id/checkbox_favourite"
+            app:layout_constraintTop_toTopOf="@id/checkbox_favourite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,7 @@ import eu.posegga.template.remote.mapper.RemoteImagesMapper
 import eu.posegga.template.remote.mapper.RemoteItemMapper
 import io.reactivex.Single
 
-class ItemRemoteSource(
+class BreedRemoteSource(
     private val itemApi: ItemApi,
     private val remoteItemMapper: RemoteItemMapper,
     private val remoteImagesMapper: RemoteImagesMapper

@@ -3,12 +3,10 @@ package eu.posegga.template.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import eu.posegga.template.common.RxViewModel
+import eu.posegga.template.common.subOnIoObserveMain
 import eu.posegga.template.domain.model.Breed
 import eu.posegga.template.domain.usecase.LoadItemsUseCase
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class ListViewModel(
@@ -24,9 +22,7 @@ class ListViewModel(
 
     fun loadItems() {
         disposables += loadItemsUseCase.execute()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
+            .subOnIoObserveMain(
                 onSuccess = ::handleSuccess,
                 onError = Timber::e
             )

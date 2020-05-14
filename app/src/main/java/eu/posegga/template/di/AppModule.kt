@@ -1,14 +1,18 @@
 package eu.posegga.template.di
 
-import eu.posegga.template.data.repository.ItemRepository
+import eu.posegga.template.data.repository.BreedRepository
+import eu.posegga.template.data.repository.FavoriteRepository
+import eu.posegga.template.domain.usecase.AddFavoriteUseCase
 import eu.posegga.template.domain.usecase.LoadImagesUseCase
 import eu.posegga.template.domain.usecase.LoadItemsUseCase
+import eu.posegga.template.domain.usecase.RemoveFavoriteUseCase
+import eu.posegga.template.local.repository.FavoriteLocalSource
 import eu.posegga.template.remote.api.ItemApi
 import eu.posegga.template.remote.mapper.RemoteImagesMapper
 import eu.posegga.template.remote.mapper.RemoteItemMapper
 import eu.posegga.template.remote.provider.OkHttpProvider
 import eu.posegga.template.remote.provider.RetrofitProvider
-import eu.posegga.template.remote.repository.ItemRemoteSource
+import eu.posegga.template.remote.repository.BreedRemoteSource
 import eu.posegga.template.viewmodel.ImagesViewModel
 import eu.posegga.template.viewmodel.ListViewModel
 import org.koin.android.ext.koin.androidContext
@@ -23,10 +27,14 @@ val appModule = module {
     single { get<Retrofit>().create(ItemApi::class.java) }
     single { RemoteItemMapper() }
     single { RemoteImagesMapper() }
-    single { ItemRemoteSource(get(), get(), get()) }
-    single { ItemRepository(get()) }
+    single { BreedRemoteSource(get(), get(), get()) }
+    single { FavoriteLocalSource() }
+    single { BreedRepository(get()) }
+    single { FavoriteRepository(get()) }
     single { LoadItemsUseCase(get()) }
-    single { LoadImagesUseCase(get()) }
+    single { LoadImagesUseCase(get(), get()) }
+    single { AddFavoriteUseCase(get()) }
+    single { RemoveFavoriteUseCase(get()) }
     viewModel { ListViewModel(get()) }
-    viewModel { ImagesViewModel(get()) }
+    viewModel { ImagesViewModel(get(), get(), get()) }
 }

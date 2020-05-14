@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import eu.posegga.template.R
+import eu.posegga.template.domain.model.Image
 import eu.posegga.template.viewmodel.ImagesViewModel
 import kotlinx.android.synthetic.main.details_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,7 +21,11 @@ class ImagesFragment : Fragment() {
     private val args: ImagesFragmentArgs by navArgs()
 
     private val imagesAdapter = ImagesAdapter().apply {
-        // click listener
+        onFavouriteClickListener = ::imageClicked
+    }
+
+    private fun imageClicked(image: Image) {
+        imagesViewModel.onImageFavouriteClicked(image, args.breed.displayableName)
     }
 
     override fun onCreateView(

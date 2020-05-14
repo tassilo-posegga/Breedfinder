@@ -1,11 +1,11 @@
 package eu.posegga.template.data.repository
 
 import eu.posegga.template.domain.model.Breed
-import eu.posegga.template.remote.repository.ItemRemoteSource
+import eu.posegga.template.remote.repository.BreedRemoteSource
 import io.reactivex.Single
 
-class ItemRepository(
-    private val remote: ItemRemoteSource
+class BreedRepository(
+    private val remote: BreedRemoteSource
 ) {
 
     fun loadItems(): Single<List<Breed>> =
