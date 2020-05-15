@@ -39,7 +39,7 @@ class ImagesViewModel(
             )
     }
 
-    fun onImageFavouriteClicked(image: Image, displayableName: String) {
+    fun onImageFavoriteClicked(image: Image, displayableName: String) {
         if (image.isFavorite) {
             removeFavorite(image)
         } else {

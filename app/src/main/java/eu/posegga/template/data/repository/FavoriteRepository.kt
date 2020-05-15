@@ -16,5 +16,4 @@ class FavoriteRepository(
 
     fun removeFavorite(imgUrl: String) =
         local.removeFavorite(imgUrl)
-
 }

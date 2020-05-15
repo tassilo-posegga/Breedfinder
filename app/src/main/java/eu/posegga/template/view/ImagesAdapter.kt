@@ -16,7 +16,7 @@ import eu.posegga.template.view.ImagesAdapter.ImageViewHolder
 
 class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
 
-    var onFavouriteClickListener: (Image) -> Unit = { }
+    var onFavoriteClickListener: (Image) -> Unit = { }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ImageViewHolder(
@@ -33,7 +33,7 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
 
         private val breedImage: ImageView = containerView.findViewById(R.id.breed_image)
         private val favoriteCheckbox: ImageButton =
-            containerView.findViewById(R.id.checkbox_favourite)
+            containerView.findViewById(R.id.delete_favorite)
 
         @SuppressLint("ClickableViewAccessibility")
         fun bind(image: Image) {
@@ -50,7 +50,7 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
             favoriteCheckbox.background = buttonBackground
 
             favoriteCheckbox.setOnClickListener {
-                onFavouriteClickListener.invoke(image)
+                onFavoriteClickListener.invoke(image)
             }
         }
     }

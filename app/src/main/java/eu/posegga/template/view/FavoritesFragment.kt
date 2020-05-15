@@ -18,7 +18,7 @@ class FavoritesFragment : Fragment() {
     private val favoritesViewModel: FavoritesViewModel by inject()
 
     private val listAdapter = FavoritesAdapter().apply {
-        onFavouriteClickListener = ::itemClicked
+        onFavoriteClickListener = ::itemClicked
     }
 
     override fun onCreateView(

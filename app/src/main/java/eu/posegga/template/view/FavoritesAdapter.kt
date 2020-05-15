@@ -15,7 +15,7 @@ import eu.posegga.template.view.FavoritesAdapter.FavoriteViewHolder
 
 class FavoritesAdapter : ListAdapter<Favorite, FavoriteViewHolder>(FAVORITE_CALLBACK) {
 
-    var onFavouriteClickListener: (Favorite) -> Unit = { }
+    var onFavoriteClickListener: (Favorite) -> Unit = { }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         FavoriteViewHolder(
@@ -32,7 +32,7 @@ class FavoritesAdapter : ListAdapter<Favorite, FavoriteViewHolder>(FAVORITE_CALL
 
         private val breedImage: ImageView = containerView.findViewById(R.id.breed_image)
         private val favoriteCheckbox: ImageButton =
-            containerView.findViewById(R.id.checkbox_favourite)
+            containerView.findViewById(R.id.delete_favorite)
 
         fun bind(favorite: Favorite) {
             Picasso.get()
@@ -40,7 +40,7 @@ class FavoritesAdapter : ListAdapter<Favorite, FavoriteViewHolder>(FAVORITE_CALL
                 .into(breedImage)
 
             favoriteCheckbox.setOnClickListener {
-                onFavouriteClickListener.invoke(favorite)
+                onFavoriteClickListener.invoke(favorite)
             }
         }
     }

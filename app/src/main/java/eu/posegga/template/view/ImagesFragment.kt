@@ -21,11 +21,11 @@ class ImagesFragment : Fragment() {
     private val args: ImagesFragmentArgs by navArgs()
 
     private val imagesAdapter = ImagesAdapter().apply {
-        onFavouriteClickListener = ::imageClicked
+        onFavoriteClickListener = ::imageClicked
     }
 
     private fun imageClicked(image: Image) {
-        imagesViewModel.onImageFavouriteClicked(image, args.breed.displayableName)
+        imagesViewModel.onImageFavoriteClicked(image, args.breed.displayableName)
     }
 
     override fun onCreateView(

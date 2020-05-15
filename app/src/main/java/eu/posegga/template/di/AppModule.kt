@@ -3,6 +3,8 @@ package eu.posegga.template.di
 import eu.posegga.template.data.repository.BreedRepository
 import eu.posegga.template.data.repository.FavoriteRepository
 import eu.posegga.template.domain.usecase.*
+import eu.posegga.template.local.db.FavoritesDatabase
+import eu.posegga.template.local.mapper.LocalFavoriteMapper
 import eu.posegga.template.local.repository.FavoriteLocalSource
 import eu.posegga.template.remote.api.ItemApi
 import eu.posegga.template.remote.mapper.RemoteImagesMapper
@@ -26,7 +28,9 @@ val appModule = module {
     single { RemoteItemMapper() }
     single { RemoteImagesMapper() }
     single { BreedRemoteSource(get(), get(), get()) }
-    single { FavoriteLocalSource() }
+    single { FavoritesDatabase.getInstance(androidContext()).favoriteDao() }
+    single { LocalFavoriteMapper() }
+    single { FavoriteLocalSource(get(), get()) }
     single { BreedRepository(get()) }
     single { FavoriteRepository(get()) }
     single { LoadItemsUseCase(get()) }

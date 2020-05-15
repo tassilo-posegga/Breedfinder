@@ -28,5 +28,5 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="eu.posegga.template.view.FavoritesFragment"
-        android:label="FavoritesFragment" />
+        android:label="@string/my_favorites" />
 </navigation>
