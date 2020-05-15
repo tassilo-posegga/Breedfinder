@@ -50,7 +50,6 @@ class ImagesFragment : Fragment() {
             adapter = imagesAdapter
             layoutManager =
                 GridLayoutManager(context, columns)
-            addItemDecoration(SpacesItemDecoration(columns))
         }
     }
 

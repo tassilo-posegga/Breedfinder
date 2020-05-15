@@ -52,7 +52,7 @@ class FavoritesFragment : Fragment() {
                             }
                     }
                 }
-            addItemDecoration(SpacesItemDecoration(columns))
+//            addItemDecoration(SpacesItemDecoration(columns))
         }
     }
 
