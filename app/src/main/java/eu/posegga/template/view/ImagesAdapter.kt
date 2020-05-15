@@ -52,17 +52,6 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
             favoriteCheckbox.setOnClickListener {
                 onFavouriteClickListener.invoke(image)
             }
-
-//            favoriteCheckbox.setOnTouchListener { _, event ->
-//                if (event.action == MotionEvent.ACTION_DOWN) {
-//                    onFavouriteClickListener.invoke(image.copy(isFavorite = !image.isFavorite))
-//                }
-//                true
-//
-//            }
-//            favoriteCheckbox.setOnCheckedChangeListener { _, isChecked ->
-//                onFavouriteClickListener.invoke(image.copy(isFavorite = isChecked))
-//            }
         }
     }
 

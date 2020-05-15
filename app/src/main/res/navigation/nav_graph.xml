@@ -7,10 +7,13 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="eu.posegga.template.view.BreedsFragment"
-        android:label="ListFragment">
+        android:label="@string/teaser_breed">
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
 
     <fragment
@@ -21,4 +24,9 @@
             android:name="breed"
             app:argType="eu.posegga.template.domain.model.Breed" />
     </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="eu.posegga.template.view.FavoritesFragment"
+        android:label="FavoritesFragment" />
 </navigation>

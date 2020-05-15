@@ -2,10 +2,7 @@ package eu.posegga.template.di
 
 import eu.posegga.template.data.repository.BreedRepository
 import eu.posegga.template.data.repository.FavoriteRepository
-import eu.posegga.template.domain.usecase.AddFavoriteUseCase
-import eu.posegga.template.domain.usecase.LoadImagesUseCase
-import eu.posegga.template.domain.usecase.LoadItemsUseCase
-import eu.posegga.template.domain.usecase.RemoveFavoriteUseCase
+import eu.posegga.template.domain.usecase.*
 import eu.posegga.template.local.repository.FavoriteLocalSource
 import eu.posegga.template.remote.api.ItemApi
 import eu.posegga.template.remote.mapper.RemoteImagesMapper
@@ -13,6 +10,7 @@ import eu.posegga.template.remote.mapper.RemoteItemMapper
 import eu.posegga.template.remote.provider.OkHttpProvider
 import eu.posegga.template.remote.provider.RetrofitProvider
 import eu.posegga.template.remote.repository.BreedRemoteSource
+import eu.posegga.template.viewmodel.FavoritesViewModel
 import eu.posegga.template.viewmodel.ImagesViewModel
 import eu.posegga.template.viewmodel.ListViewModel
 import org.koin.android.ext.koin.androidContext
@@ -33,8 +31,10 @@ val appModule = module {
     single { FavoriteRepository(get()) }
     single { LoadItemsUseCase(get()) }
     single { LoadImagesUseCase(get(), get()) }
+    single { LoadFavoritesUseCase(get()) }
     single { AddFavoriteUseCase(get()) }
     single { RemoveFavoriteUseCase(get()) }
     viewModel { ListViewModel(get()) }
     viewModel { ImagesViewModel(get(), get(), get()) }
+    viewModel { FavoritesViewModel(get(), get()) }
 }

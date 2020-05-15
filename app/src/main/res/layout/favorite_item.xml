@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="@dimen/default_margin"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,23 +12,24 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/breed_image"
+            android:id="@+id/image_favorite"
             android:layout_width="0dp"
             android:layout_height="164dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/checkbox_favourite"
+            app:layout_constraintBottom_toTopOf="@id/button_remove_favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/checkbox_favourite"
+            android:id="@+id/button_remove_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/double_margin"
+            android:background="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/breed_image" />
+            app:layout_constraintTop_toBottomOf="@id/image_favorite" />
 
         <ImageButton
             android:id="@+id/button_share"
@@ -35,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/double_margin"
             android:background="@drawable/ic_share"
-            app:layout_constraintBottom_toBottomOf="@id/checkbox_favourite"
-            app:layout_constraintEnd_toStartOf="@id/checkbox_favourite"
-            app:layout_constraintTop_toTopOf="@id/checkbox_favourite" />
+            app:layout_constraintBottom_toBottomOf="@id/button_remove_favorite"
+            app:layout_constraintEnd_toStartOf="@id/button_remove_favorite"
+            app:layout_constraintTop_toTopOf="@id/button_remove_favorite" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

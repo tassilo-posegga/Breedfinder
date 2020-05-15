@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,10 +15,13 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
     }
 
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+
     private fun setupToolbar() {
-        supportActionBar?.hide()
-        val navController = findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
-        toolbar.setupWithNavController(navController, AppBarConfiguration(navController.graph))
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController, AppBarConfiguration(navController.graph))
     }
+
+    override fun onSupportNavigateUp(): Boolean =
+        navController.navigateUp()
 }
