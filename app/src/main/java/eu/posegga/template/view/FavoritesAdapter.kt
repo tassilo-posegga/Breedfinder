@@ -5,54 +5,103 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import eu.posegga.template.R
 import eu.posegga.template.domain.model.Favorite
-import eu.posegga.template.view.FavoritesAdapter.FavoriteViewHolder
+import eu.posegga.template.domain.model.FavoriteListItem
+import eu.posegga.template.domain.model.FavoriteTitle
+import eu.posegga.template.view.FavoritesAdapter.FavoriteBaseViewHolder
 
-class FavoritesAdapter : ListAdapter<Favorite, FavoriteViewHolder>(FAVORITE_CALLBACK) {
+class FavoritesAdapter<TYPE : FavoriteListItem> :
+    ListAdapter<FavoriteListItem, FavoriteBaseViewHolder<TYPE>>(FAVORITE_CALLBACK) {
 
     var onFavoriteClickListener: (Favorite) -> Unit = { }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FavoriteViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
-        )
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FavoriteBaseViewHolder<TYPE> =
+        when (viewType) {
+            VIEW_TYPE_HEADER -> HeadlineViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.title_item, parent, false)
+            )
+            else -> FavoriteViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
+            )
+        } as FavoriteBaseViewHolder<TYPE>
 
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun getItemViewType(position: Int): Int =
+        when (getItem(position)) {
+            is FavoriteTitle -> VIEW_TYPE_HEADER
+            else -> VIEW_TYPE_ITEM
+        }
+
+    override fun onBindViewHolder(holder: FavoriteBaseViewHolder<TYPE>, position: Int) =
+        when (holder) {
+            is FavoritesAdapter<*>.FavoriteViewHolder -> holder.bind(getItem(position) as Favorite)
+            is FavoritesAdapter<*>.HeadlineViewHolder -> holder.bind(getItem(position) as FavoriteTitle)
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+
+
+    abstract class FavoriteBaseViewHolder<ITEM_TYPE : FavoriteListItem>(
+        containerView: View
+    ) : RecyclerView.ViewHolder(containerView) {
+
+        abstract fun bind(item: ITEM_TYPE)
+    }
+
+    inner class HeadlineViewHolder(
+        containerView: View
+    ) : FavoriteBaseViewHolder<FavoriteTitle>(containerView) {
+
+        private val titleText: TextView = containerView.findViewById(R.id.favorite_title)
+
+        override fun bind(item: FavoriteTitle) {
+            titleText.text = item.title
+        }
     }
 
     inner class FavoriteViewHolder(
         containerView: View
-    ) : RecyclerView.ViewHolder(containerView) {
+    ) : FavoriteBaseViewHolder<Favorite>(containerView) {
 
         private val breedImage: ImageView = containerView.findViewById(R.id.breed_image)
-        private val favoriteCheckbox: ImageButton =
+        private val removeFavoriteButton: ImageButton =
             containerView.findViewById(R.id.delete_favorite)
 
-        fun bind(favorite: Favorite) {
+        override fun bind(item: Favorite) {
             Picasso.get()
-                .load(favorite.imgUrl)
+                .load(item.imgUrl)
                 .into(breedImage)
 
-            favoriteCheckbox.setOnClickListener {
-                onFavoriteClickListener.invoke(favorite)
+            removeFavoriteButton.setOnClickListener {
+                onFavoriteClickListener.invoke(item)
             }
         }
     }
 
-    private companion object {
-        val FAVORITE_CALLBACK = object : DiffUtil.ItemCallback<Favorite>() {
+    companion object {
+        const val VIEW_TYPE_HEADER = 0
+        const val VIEW_TYPE_ITEM = 1
 
-            override fun areItemsTheSame(oldItem: Favorite, newitem: Favorite): Boolean =
-                oldItem.imgUrl == newitem.imgUrl
+        private val FAVORITE_CALLBACK = object : DiffUtil.ItemCallback<FavoriteListItem>() {
 
-            override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite): Boolean =
-                oldItem.displayableName == newItem.displayableName
+            override fun areItemsTheSame(
+                oldItem: FavoriteListItem,
+                newitem: FavoriteListItem
+            ): Boolean =
+                oldItem == newitem
+
+            override fun areContentsTheSame(
+                oldItem: FavoriteListItem,
+                newItem: FavoriteListItem
+            ): Boolean =
+                oldItem == newItem
         }
     }
 }
