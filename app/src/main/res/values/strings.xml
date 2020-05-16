@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Template</string>
+    <string name="app_name">Breedfinder</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
     <string name="teaser_breed">What Breed are you looking for?</string>

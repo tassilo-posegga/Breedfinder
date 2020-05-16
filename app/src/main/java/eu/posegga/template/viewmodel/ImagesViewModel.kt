@@ -72,9 +72,7 @@ class ImagesViewModel(
     private fun setFavoriteStatus(image: Image, checked: Boolean) {
         _images.value = _images.value?.map {
             if (image.url == it.url) {
-                image.copy(
-                    isFavorite = checked
-                )
+                image.copy(isFavorite = checked)
             } else {
                 it
             }

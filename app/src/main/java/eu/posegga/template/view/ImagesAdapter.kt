@@ -1,11 +1,11 @@
 package eu.posegga.template.view
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +14,7 @@ import eu.posegga.template.R
 import eu.posegga.template.domain.model.Image
 import eu.posegga.template.view.ImagesAdapter.ImageViewHolder
 
-class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
+class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(IMAGES_CALLBACK) {
 
     var onFavoriteClickListener: (Image) -> Unit = { }
 
@@ -35,19 +35,19 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
         private val favoriteCheckbox: ImageButton =
             containerView.findViewById(R.id.delete_favorite)
 
-        @SuppressLint("ClickableViewAccessibility")
         fun bind(image: Image) {
-
             Picasso.get()
                 .load(image.url)
                 .into(breedImage)
 
-            val buttonBackground =
-                if (image.isFavorite) favoriteCheckbox.resources.getDrawable(R.drawable.ic_favorite) else favoriteCheckbox.resources.getDrawable(
-                    R.drawable.ic_favorite_border
-                )
+            val drawableId = if (image.isFavorite) {
+                R.drawable.ic_favorite
+            } else {
+                R.drawable.ic_favorite_border
+            }
 
-            favoriteCheckbox.background = buttonBackground
+            favoriteCheckbox.background =
+                ContextCompat.getDrawable(favoriteCheckbox.context, drawableId)
 
             favoriteCheckbox.setOnClickListener {
                 onFavoriteClickListener.invoke(image)
@@ -56,7 +56,7 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
     }
 
     private companion object {
-        val ITEM_CALLBACK = object : DiffUtil.ItemCallback<Image>() {
+        val IMAGES_CALLBACK = object : DiffUtil.ItemCallback<Image>() {
 
             override fun areItemsTheSame(oldImage: Image, newImage: Image): Boolean =
                 oldImage.url == newImage.url
@@ -66,4 +66,3 @@ class ImagesAdapter : ListAdapter<Image, ImageViewHolder>(ITEM_CALLBACK) {
         }
     }
 }
-

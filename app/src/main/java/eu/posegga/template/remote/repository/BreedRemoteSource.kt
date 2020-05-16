@@ -1,25 +1,25 @@
 package eu.posegga.template.remote.repository
 
 import eu.posegga.template.domain.model.Breed
-import eu.posegga.template.remote.api.ItemApi
+import eu.posegga.template.remote.api.DogApi
+import eu.posegga.template.remote.mapper.RemoteBreedMapper
 import eu.posegga.template.remote.mapper.RemoteImagesMapper
-import eu.posegga.template.remote.mapper.RemoteItemMapper
 import io.reactivex.Single
 
 class BreedRemoteSource(
-    private val itemApi: ItemApi,
-    private val remoteItemMapper: RemoteItemMapper,
+    private val dogApi: DogApi,
+    private val remoteBreedMapper: RemoteBreedMapper,
     private val remoteImagesMapper: RemoteImagesMapper
 ) {
 
-    fun loadItems(): Single<List<Breed>> =
-        itemApi.loadItems().map(remoteItemMapper::map)
+    fun loadBreeds(): Single<List<Breed>> =
+        dogApi.loadBreeds().map(remoteBreedMapper::map)
 
     fun loadImagesForBreed(breed: String): Single<List<String>> =
-        itemApi.loadImagesForBreed(breed)
+        dogApi.loadImagesForBreed(breed)
             .map(remoteImagesMapper::map)
 
     fun loadImagesForSubBreed(breed: String, subBreed: String): Single<List<String>> =
-        itemApi.loadImagesForSubBreed(breed = breed, subBreed = subBreed)
+        dogApi.loadImagesForSubBreed(breed = breed, subBreed = subBreed)
             .map(remoteImagesMapper::map)
 }

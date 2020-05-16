@@ -35,7 +35,7 @@ class LoadImagesUseCase(
         params.subBreed?.let {
             breedRepository.loadImagesForSubBreed(
                 params.breed,
-                params.subBreed
+                it
             )
         } ?: breedRepository.loadImagesForBreed(params.breed)
 

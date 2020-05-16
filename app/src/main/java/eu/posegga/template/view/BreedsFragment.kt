@@ -1,7 +1,12 @@
 package eu.posegga.template.view
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -9,17 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import eu.posegga.template.R
 import eu.posegga.template.domain.model.Breed
-import eu.posegga.template.viewmodel.ListViewModel
-import kotlinx.android.synthetic.main.breed_fragment.*
+import eu.posegga.template.viewmodel.BreedsViewModel
+import kotlinx.android.synthetic.main.breed_fragment.breed_list
 import org.koin.android.ext.android.inject
-
 
 class BreedsFragment : Fragment() {
 
-    private val listViewModel: ListViewModel by inject()
+    private val breedsViewModel: BreedsViewModel by inject()
 
     private val listAdapter = BreedsAdapter().apply {
-        itemClickListener = ::itemClicked
+        breedClickListener = ::breedClicked
     }
 
     override fun onCreateView(
@@ -32,12 +36,12 @@ class BreedsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        initRecycler()
-        listViewModel.loadItems()
-        observeItems()
+        setupRecycler()
+        breedsViewModel.loadBreeds()
+        observeBreeds()
     }
 
-    private fun initRecycler() {
+    private fun setupRecycler() {
         breed_list.apply {
             setHasFixedSize(true)
             adapter = listAdapter
@@ -45,13 +49,13 @@ class BreedsFragment : Fragment() {
         }
     }
 
-    private fun observeItems() {
-        listViewModel.itemsLiveData.observe(viewLifecycleOwner, Observer {
+    private fun observeBreeds() {
+        breedsViewModel.breedsLiveData.observe(viewLifecycleOwner, Observer {
             listAdapter.submitList(it)
         })
     }
 
-    private fun itemClicked(breed: Breed) {
+    private fun breedClicked(breed: Breed) {
         findNavController().navigate(
             BreedsFragmentDirections.actionListFragmentToDetailFragment(breed)
         )
@@ -70,5 +74,4 @@ class BreedsFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
 }

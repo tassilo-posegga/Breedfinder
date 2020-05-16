@@ -1,6 +1,9 @@
 package eu.posegga.template.local.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import eu.posegga.template.local.model.LocalFavorite
 import io.reactivex.Completable
 import io.reactivex.Single

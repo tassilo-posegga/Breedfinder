@@ -13,7 +13,7 @@ import eu.posegga.template.view.BreedsAdapter.ItemViewHolder
 
 class BreedsAdapter : ListAdapter<Breed, ItemViewHolder>(ITEM_CALLBACK) {
 
-    var itemClickListener: (Breed) -> Unit = {}
+    var breedClickListener: (Breed) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ItemViewHolder(
@@ -34,7 +34,7 @@ class BreedsAdapter : ListAdapter<Breed, ItemViewHolder>(ITEM_CALLBACK) {
             itemNameTextView.text = breed.displayableName
 
             containerView.setOnClickListener {
-                itemClickListener.invoke(breed)
+                breedClickListener.invoke(breed)
             }
         }
     }
@@ -50,4 +50,3 @@ class BreedsAdapter : ListAdapter<Breed, ItemViewHolder>(ITEM_CALLBACK) {
         }
     }
 }
-

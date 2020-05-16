@@ -1,15 +1,15 @@
 package eu.posegga.template.remote.api
 
-import eu.posegga.template.remote.model.RemoteImages
 import eu.posegga.template.remote.model.RemoteBreeds
+import eu.posegga.template.remote.model.RemoteImages
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface ItemApi {
+interface DogApi {
 
     @GET("breeds/list/all")
-    fun loadItems(): Single<RemoteBreeds>
+    fun loadBreeds(): Single<RemoteBreeds>
 
     @GET("breed/{breed}/images")
     fun loadImagesForBreed(

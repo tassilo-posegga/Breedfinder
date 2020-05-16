@@ -2,10 +2,10 @@ package eu.posegga.template.remote.provider
 
 import android.content.Context
 import eu.posegga.template.common.Provider
+import java.io.File
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import java.io.File
 
 class OkHttpProvider(
     private val context: Context

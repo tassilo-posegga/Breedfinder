@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, AppBarConfiguration(navController.graph))
+
+        // show SearchView only on breed list
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.listFragment -> appBar.search_view.visibility = VISIBLE

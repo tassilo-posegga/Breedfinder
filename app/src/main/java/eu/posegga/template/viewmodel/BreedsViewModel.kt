@@ -5,23 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import eu.posegga.template.common.RxViewModel
 import eu.posegga.template.common.subOnIoObserveMain
 import eu.posegga.template.domain.model.Breed
-import eu.posegga.template.domain.usecase.LoadItemsUseCase
+import eu.posegga.template.domain.usecase.LoadBreedsUseCase
 import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 
-class ListViewModel(
-    private val loadItemsUseCase: LoadItemsUseCase
+class BreedsViewModel(
+    private val loadBreedsUseCase: LoadBreedsUseCase
 ) : RxViewModel() {
 
     private val _itemsLiveData: MutableLiveData<List<Breed>> by lazy {
         MutableLiveData<List<Breed>>()
     }
 
-    val itemsLiveData: LiveData<List<Breed>>
+    val breedsLiveData: LiveData<List<Breed>>
         get() = _itemsLiveData
 
-    fun loadItems() {
-        disposables += loadItemsUseCase.execute()
+    fun loadBreeds() {
+        disposables += loadBreedsUseCase.execute()
             .subOnIoObserveMain(
                 onSuccess = ::handleSuccess,
                 onError = Timber::e

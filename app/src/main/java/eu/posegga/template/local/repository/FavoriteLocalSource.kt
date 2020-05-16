@@ -11,8 +11,6 @@ class FavoriteLocalSource(
     private val favoriteMapper: LocalFavoriteMapper
 ) {
 
-    private val favorites: MutableList<Favorite> = mutableListOf()
-
     fun loadFavorites(): Single<List<Favorite>> =
         favoriteDao.loadFavorites().map {
             it.map(favoriteMapper::to)

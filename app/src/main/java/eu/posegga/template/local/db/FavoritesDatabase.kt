@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import eu.posegga.template.local.model.LocalFavorite
 
-@Database(entities = [LocalFavorite::class], version = 1)
+@Database(entities = [LocalFavorite::class], version = 1, exportSchema = false)
 abstract class FavoritesDatabase : RoomDatabase() {
 
     abstract fun favoriteDao(): FavoriteDao

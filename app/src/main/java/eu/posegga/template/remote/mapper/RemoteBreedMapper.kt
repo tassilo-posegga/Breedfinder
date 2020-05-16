@@ -5,7 +5,7 @@ import eu.posegga.template.common.Mapper
 import eu.posegga.template.domain.model.Breed
 import eu.posegga.template.remote.model.RemoteBreeds
 
-class RemoteItemMapper : Mapper<RemoteBreeds, List<Breed>> {
+class RemoteBreedMapper : Mapper<RemoteBreeds, List<Breed>> {
 
     @SuppressLint("DefaultLocale")
     override fun map(input: RemoteBreeds): List<Breed> =

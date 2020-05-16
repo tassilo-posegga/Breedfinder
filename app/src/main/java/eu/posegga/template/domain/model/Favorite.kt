@@ -5,6 +5,9 @@ data class Favorite(
     val imgUrl: String
 ) : FavoriteListItem {
 
+    override fun identifier(): String =
+        imgUrl
+
     override fun equals(other: Any?): Boolean =
         (other as? Favorite)?.let {
             this.displayableName == other.displayableName && this.imgUrl == other.imgUrl

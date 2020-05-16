@@ -5,10 +5,10 @@ import eu.posegga.template.data.repository.BreedRepository
 import eu.posegga.template.domain.model.Breed
 import io.reactivex.Single
 
-class LoadItemsUseCase(
+class LoadBreedsUseCase(
     private val repository: BreedRepository
 ) : NoArgsUseCase<Single<List<Breed>>> {
 
     override fun execute(): Single<List<Breed>> =
-        repository.loadItems()
+        repository.loadBreeds()
 }

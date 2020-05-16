@@ -34,7 +34,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         favoritesViewModel.loadFavorites()
-        observeItems()
+        observeFavorites()
     }
 
     private fun initRecycler() {
@@ -44,6 +44,7 @@ class FavoritesFragment : Fragment() {
             adapter = favoritesAdapter
             layoutManager =
                 GridLayoutManager(context, columns).apply {
+                    // header should stretch across the whole parent width
                     spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                         override fun getSpanSize(position: Int): Int =
                             when (favoritesAdapter.getItemViewType(position)) {
@@ -52,11 +53,10 @@ class FavoritesFragment : Fragment() {
                             }
                     }
                 }
-//            addItemDecoration(SpacesItemDecoration(columns))
         }
     }
 
-    private fun observeItems() {
+    private fun observeFavorites() {
         favoritesViewModel.favoritesLiveData.observe(viewLifecycleOwner, Observer {
             favoritesAdapter.submitList(it)
         })

@@ -8,8 +8,8 @@ class BreedRepository(
     private val remote: BreedRemoteSource
 ) {
 
-    fun loadItems(): Single<List<Breed>> =
-        remote.loadItems()
+    fun loadBreeds(): Single<List<Breed>> =
+        remote.loadBreeds()
 
     fun loadImagesForBreed(breed: String): Single<List<String>> =
         remote.loadImagesForBreed(breed)

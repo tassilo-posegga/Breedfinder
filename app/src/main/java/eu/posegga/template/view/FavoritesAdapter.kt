@@ -21,6 +21,7 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
 
     var onFavoriteClickListener: (Favorite) -> Unit = { }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,7 +31,7 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
                 LayoutInflater.from(parent.context).inflate(R.layout.title_item, parent, false)
             )
             else -> FavoriteViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.favorite_item, parent, false)
             )
         } as FavoriteBaseViewHolder<TYPE>
 
@@ -46,7 +47,6 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
             is FavoritesAdapter<*>.HeadlineViewHolder -> holder.bind(getItem(position) as FavoriteTitle)
             else -> throw IllegalArgumentException("Invalid view type")
         }
-
 
     abstract class FavoriteBaseViewHolder<ITEM_TYPE : FavoriteListItem>(
         containerView: View
@@ -70,9 +70,9 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
         containerView: View
     ) : FavoriteBaseViewHolder<Favorite>(containerView) {
 
-        private val breedImage: ImageView = containerView.findViewById(R.id.breed_image)
+        private val breedImage: ImageView = containerView.findViewById(R.id.favorite_image)
         private val removeFavoriteButton: ImageButton =
-            containerView.findViewById(R.id.delete_favorite)
+            containerView.findViewById(R.id.delete_favorite_button)
 
         override fun bind(item: Favorite) {
             Picasso.get()
@@ -93,9 +93,9 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
 
             override fun areItemsTheSame(
                 oldItem: FavoriteListItem,
-                newitem: FavoriteListItem
+                newItem: FavoriteListItem
             ): Boolean =
-                oldItem == newitem
+                oldItem.identifier() == newItem.identifier()
 
             override fun areContentsTheSame(
                 oldItem: FavoriteListItem,
@@ -105,4 +105,3 @@ class FavoritesAdapter<TYPE : FavoriteListItem> :
         }
     }
 }
-
